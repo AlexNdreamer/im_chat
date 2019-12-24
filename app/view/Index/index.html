@@ -14,7 +14,9 @@
             margin: 10px;
         }
     </style>
+
 </head>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
 <body>
     <div class="body">
         <div class="history">
@@ -31,4 +33,45 @@
     </div>
 
 </body>
+
+<script>
+     var ws = new WebSocket("ws://140.143.196.73:9501");
+    var my_client_id;
+    ws.onopen = function(evt) {
+        console.log("Connection open ...");
+        //ws.send("Hello WebSockets!");
+    };
+
+    ws.onmessage = function(evt) {
+        console.log( "Received Message: " + evt.data);
+        let msg = JSON.parse(evt);
+        if (msg.type == 'init') {
+            my_client_id = msg.clientId;
+        }
+    };
+
+    ws.onclose = function(evt) {
+
+        console.log(evt);
+    };
+
+    $('#send').click(function(){
+        let content = $('#msg_content').val();
+
+
+        $.ajax({
+            url: '/MsgHandler/sendMsg',
+            method: 'POST',
+            data: {
+                client_id:my_client_id,
+                msg: content
+            },
+            success: data => {
+                console.log(data);
+            }
+        });
+    });
+
+
+</script>
 </html>
