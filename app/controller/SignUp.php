@@ -12,7 +12,7 @@ namespace app\controller;
 use app\model\User,
     app\BaseController,
     app\model\Auth,
-    think\Request;
+    think\facade\Request
     ;
 
 class SignUp extends BaseController
