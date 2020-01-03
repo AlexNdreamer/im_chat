@@ -43,8 +43,9 @@
     };
 
     ws.onmessage = function(evt) {
-        console.log( "Received Message: " + evt.data);
-        let msg = JSON.parse(evt);
+
+        console.log(evt);
+        let msg = JSON.parse(evt.data);
         if (msg.type == 'init') {
             my_client_id = msg.clientId;
         }
