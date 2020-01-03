@@ -20,8 +20,10 @@ class SignUp extends BaseController
     //注册
     public function signUp()
     {
-        $data = Request::only(['username', 'password']);
+        $data = Request::only(['username', 'password', 'nickname']);
         $User = new User();
+
+        $data['create_time'] = date('Y-m-d H:i:s');
 
         if ($User->save($data)) {
             $this->response(['token' => Auth::createToken()]);
