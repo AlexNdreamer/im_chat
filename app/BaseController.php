@@ -95,7 +95,7 @@ abstract class BaseController
     public function response($data = '', $errno = 200, $msg = 'success')
     {
         echo json_encode([
-            'data' => is_array($data) ? $data : [$data],
+            'data' => is_array($data) ? $data : $data,
             'errno' => $errno,
             'msg' => $msg
         ], JSON_UNESCAPED_UNICODE);

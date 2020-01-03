@@ -16,7 +16,7 @@ class User extends Model
     {
         $info = User::where('username', $username)->field('id')->findOrEmpty();
 
-        return $info ? true : false;
+        return $info->id ? true : false;
     }
 
     /*public function createUser(array $data)

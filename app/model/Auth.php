@@ -39,7 +39,7 @@ class Auth
         $now = time();
         $token = (new Builder())
             // Configures the issuer (iss claim)
-            //->issuedBy('http://example.com')
+            ->issuedBy('http://www.beatdreamer.cn')
             // Configures the audience (aud claim)
             //->permittedFor('http://example.org')
             // Configures the id (jti claim)
@@ -58,7 +58,7 @@ class Auth
             ->sign($signer, self::$secret)
             ->getToken();
 
-        return $token;
+        return (string) $token;
     }
 
     /**
