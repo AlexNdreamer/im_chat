@@ -96,7 +96,7 @@ abstract class BaseController
     {
         echo json_encode([
             'data' => is_array($data) ? $data : $data,
-            'errno' => $errno,
+            'code' => $errno,
             'msg' => $msg
         ], JSON_UNESCAPED_UNICODE);
 
