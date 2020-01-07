@@ -29,8 +29,8 @@ class Login extends BaseController
             $this->response([], 500,$e->getMessage());
         }
         //$userinfo = User::
-        if (Auth::login($username, $password)) {
-            $this->response(['token' => Auth::createToken()]);
+        if ($uid = Auth::login($username, $password)) {
+            $this->response(['token' => Auth::createToken($uid)]);
         }else{
             $this->response([], 403, '账号或密码错误');
 

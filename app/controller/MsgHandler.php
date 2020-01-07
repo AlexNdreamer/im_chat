@@ -8,12 +8,14 @@
 
 namespace app\controller;
 
-use app\BaseController;
-use think\facade\Request;
-use GatewayClient\Gateway;
+use app\BaseController,
+     think\facade\Request,
+     GatewayClient\Gateway
+;
 
 class MsgHandler extends BaseController
 {
+
     public function sendMsg()
     {
         $msg = Request::post('msg');

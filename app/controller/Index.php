@@ -1,18 +1,23 @@
 <?php
 namespace app\controller;
 
-use app\BaseController;
-
+use app\BaseController,
+    GatewayClient\Gateway
+;
 
 class Index extends BaseController
 {
-    public function index()
+
+    public function bindConnId()
     {
-        return view('Index/index');
+        $conn_id = input('post.connId');
+        Gateway::bindUid($conn_id, UID);
+        self::response();
     }
 
-    public function hello($name = 'ThinkPHP6')
+    //所有在线用户
+    public function userList()
     {
-        return 'hello,' . $name;
+
     }
 }

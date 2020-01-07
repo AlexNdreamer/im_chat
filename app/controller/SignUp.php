@@ -44,7 +44,7 @@ class SignUp extends BaseController
         $data['create_time'] = date('Y-m-d H:i:s');
 
         if ($User->save($data)) {
-            $this->response(['token' => Auth::createToken()]);
+            $this->response(['token' => Auth::createToken($User->id)]);
         }else{
             $this->response([], 500, '注册失败，请稍后重试');
         }

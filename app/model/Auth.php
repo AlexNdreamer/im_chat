@@ -22,17 +22,19 @@ class Auth
 
     public static function login ($username, $password)
     {
-        $user = User::where('username', $username)->field('password')->findOrEmpty();
+        $user = User::where('username', $username)->field('password', 'id')->findOrEmpty();
 
         if (!$user) {
             return false;
         }
 
-        return password_verify($password, $user->password);
+        return password_verify($password, $user->password)
+            ? $user->id
+            : false ;
     }
 
     //颁发TOKEN
-    public static function createToken()
+    public static function createToken($uid)
     {
 
         $signer = new Sha256();
@@ -51,7 +53,7 @@ class Auth
             // Configures the expiration time of the token (exp claim)
             ->expiresAt($now + 86400)
             // Configures a new claim, called "uid"
-            // ->withClaim('uid', 1)
+            ->withClaim('uid', $uid)
             // Configures a new header, called "foo"
             //->withHeader('foo', 'bar')
             // Builds a new token
@@ -70,8 +72,12 @@ class Auth
      */
     public static function authToken($token)
     {
+        if (!$token) return false;
+
         $parse = (new Parser())->parse((string) $token);
         $signer = new Sha256();
-        return $parse->verify($signer, self::$secret);// 验证成功返回true 失败false
+        return $parse->verify($signer, self::$secret)
+             ? $parse->getClaim('uid')
+            : false ;// 验证成功返回true 失败false
     }
 }

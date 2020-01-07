@@ -14,3 +14,9 @@ use think\facade\Route;
 Route::post('login', 'Login/login');
 Route::post('logout', 'Login/logout');
 Route::post('signup', 'SignUp/signUp');
+
+Route::group('msg', function (){
+    Route::post('send', 'MsgHandler/sendMsg');
+})->middleware(app\middleware\Auth::class);
+
+Route::post('bindConnId', 'Index/bindConnId')->middleware(app\middleware\Auth::class);
